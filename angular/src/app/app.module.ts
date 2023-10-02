@@ -14,7 +14,8 @@ import { LanguageManagementConfigModule } from '@volo/abp.ng.language-management
 import { registerLocale } from '@volo/abp.ng.language-management/locale';
 import { SaasConfigModule } from '@volo/abp.ng.saas/config';
 import { TextTemplateManagementConfigModule } from '@volo/abp.ng.text-template-management/config';
-import { ThemeBasicModule } from '@volosoft/abp.ng.theme.lepton-x';
+// import { ThemeBasicModule } from '@volosoft/abp.ng.theme.lepton-x';
+import { ThemeBasicModule } from '@abp/ng.theme.basic'
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,7 +23,7 @@ import { APP_ROUTE_PROVIDER } from './route.provider';
 import { OpeniddictproConfigModule } from '@volo/abp.ng.openiddictpro/config';
 import { FeatureManagementModule } from '@abp/ng.feature-management';
 import { AbpOAuthModule } from '@abp/ng.oauth';
-import { AccountLayoutModule } from '@volosoft/abp.ng.theme.lepton-x/account';
+// import { AccountLayoutModule } from '@volosoft/abp.ng.theme.lepton-x/account';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -36,7 +37,7 @@ import { AccountLayoutModule } from '@volosoft/abp.ng.theme.lepton-x/account';
     AbpOAuthModule.forRoot(),
 ThemeSharedModule.forRoot(),
     AccountPublicConfigModule.forRoot(),
-    AccountLayoutModule.forRoot(),
+    // AccountLayoutModule.forRoot(),
     IdentityConfigModule.forRoot(),
     LanguageManagementConfigModule.forRoot(),
     SaasConfigModule.forRoot(),

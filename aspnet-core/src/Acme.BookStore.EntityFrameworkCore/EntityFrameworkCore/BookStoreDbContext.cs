@@ -17,6 +17,8 @@ using Volo.Saas.Editions;
 using Volo.Saas.Tenants;
 using Volo.Abp.Gdpr;
 using Volo.Abp.OpenIddict.EntityFrameworkCore;
+using Volo.Abp.EntityFrameworkCore.Modeling;
+using Acme.BookStore.Books;
 
 namespace Acme.BookStore.EntityFrameworkCore;
 
@@ -56,10 +58,10 @@ public class BookStoreDbContext :
     public DbSet<Tenant> Tenants { get; set; }
     public DbSet<Edition> Editions { get; set; }
     public DbSet<TenantConnectionString> TenantConnectionStrings { get; set; }
+	public DbSet<Book> Books { get; set; }
+	#endregion
 
-    #endregion
-
-    public BookStoreDbContext(DbContextOptions<BookStoreDbContext> options)
+	public BookStoreDbContext(DbContextOptions<BookStoreDbContext> options)
         : base(options)
     {
 
@@ -84,13 +86,14 @@ public class BookStoreDbContext :
         builder.ConfigureBlobStoring();
         builder.ConfigureGdpr();
 
-        /* Configure your own tables/entities inside here */
+		/* Configure your own tables/entities inside here */
 
-        //builder.Entity<YourEntity>(b =>
-        //{
-        //    b.ToTable(BookStoreConsts.DbTablePrefix + "YourEntities", BookStoreConsts.DbSchema);
-        //    b.ConfigureByConvention(); //auto configure for the base class props
-        //    //...
-        //});
-    }
+		builder.Entity<Book>(b =>
+		{
+			b.ToTable(BookStoreConsts.DbTablePrefix + "Books",
+				BookStoreConsts.DbSchema);
+			b.ConfigureByConvention(); //auto configure for the base class props
+			b.Property(x => x.Name).IsRequired().HasMaxLength(128);
+		});
+	}
 }

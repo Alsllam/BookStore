@@ -1,0 +1,13 @@
+FROM mcr.microsoft.com/dotnet/aspnet:7.0  AS base
+COPY bin/Release/net7.0/publish/ app/
+WORKDIR /app
+
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
+WORKDIR /src
+RUN dotnet dev-certs https -v -ep authserver.pfx -p 337ed5b9-91bf-48a9-9bd1-374f80f2010e
+
+FROM base AS final
+WORKDIR /app
+COPY --from=build /src .
+
+ENTRYPOINT ["dotnet", "Acme.BookStore.HttpApi.Host.dll"]
